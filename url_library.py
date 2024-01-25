@@ -21,7 +21,6 @@ def get_url(text):
 #Pasamos una URL obtenemos de la api de safe browsing si está listada como maliciosa o no
 def get_domain_safe_info(url):
     print(url)
-    #API_KEY = 'AIzaSyCS2NbAvcd5QbT0knabmtMbfPyK3roHiPA'
     # URL de la API de Safe Browsing
     api_url = 'https://safebrowsing.googleapis.com/v4/threatMatches:find'
     # Parámetros de la petición
@@ -46,15 +45,13 @@ def get_domain_safe_info(url):
         if result:
             return 1
     except requests.exceptions.HTTPError as err:
-        print(f'Error en la petición HTTP: {err}')
+        print(f'Error en la petición HTTP GET DOMAIN SAFE: {err}')
     except Exception as e:
         print(f'Error: {e}')
 
 #Antiguedad del Dominio
 #Recibe un string con el nombre de dominio y hace una petición a la api ip2whois.com
 def get_domain_time_info(domain):
-    API_KEY = "F786254BBEFC579B0790903539EB6D56"
-    #api_url = "https://api.ip2whois.com/v2?key=" + API_KEY + "&domain=" + domain
     try:
         response = requests.get("https://api.ip2whois.com/v2", params={'key': config["doman_info_api_key"], "domain": domain})
         response.raise_for_status()
