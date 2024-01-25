@@ -12,13 +12,15 @@ with open('./config/conf.yml', 'r') as file:
 
 #Extraer URL
 def get_url(text):
-    pattern = r'(https?://(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?://(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})'
+    pattern = r'(https?://(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?://(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]\.[^\s]{2,})'
     urls = re.findall(pattern, text)
-    return urls[0]
+    if(urls):
+        return urls[0]
 
 #Api Safe Browsing 
 #Pasamos una URL obtenemos de la api de safe browsing si está listada como maliciosa o no
 def get_domain_safe_info(url):
+    print(url)
     #API_KEY = 'AIzaSyCS2NbAvcd5QbT0knabmtMbfPyK3roHiPA'
     # URL de la API de Safe Browsing
     api_url = 'https://safebrowsing.googleapis.com/v4/threatMatches:find'
@@ -121,4 +123,4 @@ def make_redirection(url):
             return 0
     except requests.RequestException as e:
         print(f"Error al realizar la solicitud: {e}")
-        return False
+        return 0
