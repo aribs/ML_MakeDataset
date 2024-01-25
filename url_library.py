@@ -7,6 +7,15 @@ from urllib.parse import urlparse
 
 with open('./config/conf.yml', 'r') as file:
     config = yaml.safe_load(file)
+
+
+
+#Extraer URL
+def get_url(text):
+    pattern = r'(https?://(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?://(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})'
+    urls = re.findall(pattern, text)
+    return urls[0]
+
 #Api Safe Browsing 
 #Pasamos una URL obtenemos de la api de safe browsing si está listada como maliciosa o no
 def get_domain_safe_info(url):
@@ -38,6 +47,7 @@ def get_domain_safe_info(url):
         print(f'Error en la petición HTTP: {err}')
     except Exception as e:
         print(f'Error: {e}')
+
 #Antiguedad del Dominio
 #Recibe un string con el nombre de dominio y hace una petición a la api ip2whois.com
 def get_domain_time_info(domain):
@@ -61,9 +71,11 @@ def is_ip(url):
         return 1
     else:
         return 0
+    
 #Url Length
 def url_length(url):
     return len(url)
+
 #Cantidad subdominios
 def number_of_subdomains(url):
     domain = urlparse(url).netloc
@@ -78,6 +90,7 @@ def number_of_subdomains(url):
             return len(parts) - 2
     else:
         return 0
+    
 #HTTPS
 def is_https(url):
     result = urlparse(url)
@@ -97,7 +110,8 @@ def tlds_blacklist(url):
     tlds_blacklist = ['.tk', '.ml', '.ga', '.cf', '.gq', '.xyz', '.info', '.ru', '.cn']
     tld = '.' + urlparse(url).netloc.split('.')[-1]
     return tld in tlds_blacklist
-#Hace una redirección
+
+#Comprueba redireccionamiento
 def make_redirection(url):
     try:
         response = requests.get(url)

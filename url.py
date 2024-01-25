@@ -16,3 +16,6 @@ print(domain_age)
 
 #specialCharacter = url_library.special_characters(bad_url)
 #print(specialCharacter)
+
+url = url_library.get_url("texto de prueba1 " + special_url + "texto de prueba2")
+print(url)
