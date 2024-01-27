@@ -116,11 +116,9 @@ def special_characters(url):
 
 #Dominio Sospechoso
 def tlds_blacklist(url):
-    print(url)
     tlds_blacklist = ['.tk', '.ml', '.ga', '.cf', '.gq', '.xyz', '.info', '.ru', '.cn']
     extracted = tldextract.extract(url)
     tld = '.' + extracted.suffix
-    print(tld)
     return 1 if tld in tlds_blacklist else 0
 
 #Comprueba redireccionamiento
