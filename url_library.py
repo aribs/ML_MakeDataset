@@ -3,6 +3,7 @@ import yaml
 import requests
 import json
 import re
+import tldextract
 from urllib.parse import urlparse
 
 with open('./config/conf.yml', 'r') as file:
@@ -20,7 +21,8 @@ def get_url(text):
 #Api Safe Browsing 
 #Pasamos una URL obtenemos de la api de safe browsing si está listada como maliciosa o no
 def get_domain_safe_info(url):
-    print(url)
+    if not url.startswith(('http://', 'https://')):
+        url = 'https://' + url
     # URL de la API de Safe Browsing
     api_url = 'https://safebrowsing.googleapis.com/v4/threatMatches:find'
     # Parámetros de la petición
@@ -44,14 +46,20 @@ def get_domain_safe_info(url):
         result = response.json()
         if result:
             return 1
+        else:
+            return 0 
     except requests.exceptions.HTTPError as err:
         print(f'Error en la petición HTTP GET DOMAIN SAFE: {err}')
+        return 0 
     except Exception as e:
         print(f'Error: {e}')
+        return 0 
 
 #Antiguedad del Dominio
 #Recibe un string con el nombre de dominio y hace una petición a la api ip2whois.com
-def get_domain_time_info(domain):
+def get_domain_time_info(url):
+    domain = get_domain_from_url(url)
+    print("-------", domain)
     try:
         response = requests.get("https://api.ip2whois.com/v2", params={'key': config["doman_info_api_key"], "domain": domain})
         response.raise_for_status()
@@ -61,7 +69,7 @@ def get_domain_time_info(domain):
     except requests.exceptions.HTTPError as err:
         print(f'Error en la petición HTTP: {err}')
     except Exception as e:
-        print(f'Error: {e}')
+        print(f'Error : {e}')
 
 #Es una IP
 def is_ip(url):
@@ -95,6 +103,8 @@ def is_https(url):
     result = urlparse(url)
     if result.scheme == 'https':
         return 1
+    else:
+        return 0
 
 #Carácteres Especiales
 def special_characters(url):
@@ -106,12 +116,17 @@ def special_characters(url):
 
 #Dominio Sospechoso
 def tlds_blacklist(url):
+    print(url)
     tlds_blacklist = ['.tk', '.ml', '.ga', '.cf', '.gq', '.xyz', '.info', '.ru', '.cn']
-    tld = '.' + urlparse(url).netloc.split('.')[-1]
-    return tld in tlds_blacklist
+    extracted = tldextract.extract(url)
+    tld = '.' + extracted.suffix
+    print(tld)
+    return 1 if tld in tlds_blacklist else 0
 
 #Comprueba redireccionamiento
 def make_redirection(url):
+    if not url.startswith(('http://', 'https://')):
+        url = 'https://' + url
     try:
         response = requests.get(url)
         if response.history:
@@ -119,5 +134,17 @@ def make_redirection(url):
         else:
             return 0
     except requests.RequestException as e:
-        print(f"Error al realizar la solicitud: {e}")
+        print(f"Error al realizar la redireccion: {e}")
         return 0
+
+
+
+#Auxiliares
+def get_domain_from_url(url):
+    if not re.match(r'http[s]?://', url):
+        url = 'http://' + url
+    # Parsear la URL para obtener el componente netloc, que incluye el dominio
+    domain = urlparse(url).netloc    
+    # Opcional: eliminar posibles 'www.' para obtener el dominio más limpio
+    clean_domain = re.sub(r'^www\.', '', domain)  
+    return clean_domain

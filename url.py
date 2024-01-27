@@ -9,15 +9,15 @@ messageList = [{"text": "NETFLIX: Su suscripcion ha sido suspendida, inicie sesi
 
 def setUrlDataset(url):
     return {
-        "safe_info": url_library.get_domain_safe_info(url),
-        "domain_old_info": url_library.get_domain_time_info(url),
-        "is_ip": url_library.is_ip(url),
-        "url_length": url_library.url_length(url),
-        "number_of_subdomains": url_library.number_of_subdomains(url),
-        "is_https": url_library.is_https(url),
-        "special_characters": url_library.special_characters(url),
-        "tlds_blackist": url_library.tlds_blacklist(url),
-        "make_redirection": url_library.make_redirection(url)
+        #"safe_info": url_library.get_domain_safe_info(url),
+        #"domain_old_info": url_library.get_domain_time_info(url),
+        #"is_ip": url_library.is_ip(url),
+        #"url_length": url_library.url_length(url),
+        #"number_of_subdomains": url_library.number_of_subdomains(url),
+        #"is_https": url_library.is_https(url),
+        #"special_characters": url_library.special_characters(url),
+        #"tlds_blackist": url_library.tlds_blacklist(url),
+        #"make_redirection": url_library.make_redirection(url)
     }
 
 
