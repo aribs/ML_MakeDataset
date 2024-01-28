@@ -1,4 +1,5 @@
 import url_library
+import word_library
 import pandas as pd
 
 
@@ -6,9 +7,11 @@ bad_url = "http://malware.testing.google.test/testing/malware/"
 good_url = "https://www.google.com"
 special_url = "http://malware.testing.googвle.test/testing/malware/"
 
-messageList = [{"text": "NETFLIX: Su suscripcion ha sido suspendida, inicie sesion para actualizar su informacion a través de: netfIix-micuenta.com", "is_smsing": 1}, 
+dictionary = ["netflix", "tributaria", "inicie", "silla"]
+
+messageList = [{"text": "NETFLIX: Su suscripcion ha sido NETFLIX suspendida, inicie sesion para actualizar su informacion a través de: netfIix-micuenta.com", "is_smsing": 1}, 
                {"text": "AGENCIA TRIBUTARIA:su ejercicio anterior 2022/2023 a resultado favorable para usted en 286,84€ para recibir la devolucion antes del13/07/2023 pulse aqui ref076589.eu", "is_smsing": 1},
-               {"text": "Paga la cuenta sin moverte de la silla, usando TheFork PAY www.thefork.es/pay?utm_medium=sms&utm_source=TFPay", "is_smsing": 0}]
+               {"text": "Paga la cuenta sin moverte de la silla, usando TheFork netflix PAY www.thefork.es/pay?utm_medium=sms&utm_source=TFPay", "is_smsing": 0}]
 
 def setUrlDataset(url):
     return {
@@ -34,7 +37,10 @@ for message in messageList:
     if(url):
         datasetUrl = setUrlDataset(url)
         lineDataset = {**lineCsv, **datasetUrl}
-        print(lineDataset)
+        #print(lineDataset)
+    count_dictionary = word_library.count_words(message["text"], dictionary)
+    print(message["text"], "\n")
+    print("coincidence words ", count_dictionary)
         
 
 
