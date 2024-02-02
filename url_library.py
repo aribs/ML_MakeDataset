@@ -3,7 +3,10 @@ import yaml
 import requests
 import json
 import re
+import whois
 import tldextract
+from datetime import datetime
+
 from urllib.parse import urlparse
 
 with open('./config/conf.yml', 'r') as file:
@@ -135,9 +138,36 @@ def make_redirection(url):
         print(f"Error al realizar la redireccion: {e}")
         return 0
 
+#WHOIS DOMINIO
+def get_whois(url):
+    domain = get_domain_from_url(url)
+    info_whois = whois.whois(domain)
+    #info_whois = info_whois.json()
+    #print(info_whois["creation_date"])
+    if info_whois["creation_date"] and  isinstance(info_whois["creation_date"], list):
+        creation_date = info_whois["creation_date"][0].strftime("%Y/%m/%d")
+    elif info_whois["creation_date"]:
+        creation_date = info_whois["creation_date"].strftime("%Y/%m/%d")
+    else:
+        creation_date = ""
+    if info_whois["updated_date"] and  isinstance(info_whois["updated_date"], list):
+        updated_date = info_whois["updated_date"][0].strftime("%Y/%m/%d")
+    elif info_whois["updated_date"]:
+        updated_date = info_whois["updated_date"].strftime("%Y/%m/%d")
+    else:
+        updated_date = ""
+
+    return {
+        "creation_date": creation_date,
+        "updated_date": updated_date,
+        "is_suspended": check_suspended_domain(info_whois["name_servers"])
+    }
+    
 
 
 #Auxiliares
+
+#Separa el nombre del domino dentro de la url
 def get_domain_from_url(url):
     if not re.match(r'http[s]?://', url):
         url = 'http://' + url
@@ -146,3 +176,10 @@ def get_domain_from_url(url):
     # Opcional: eliminar posibles 'www.' para obtener el dominio más limpio
     clean_domain = re.sub(r'^www\.', '', domain)  
     return clean_domain
+
+#Busca si el domino está suspendido en base a un array de direcciones dns
+def check_suspended_domain(array):
+    for item in array:
+        if "suspended-domain" in item.lower():
+            return 1  
+    return 0
