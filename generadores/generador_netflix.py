@@ -1,3 +1,4 @@
+import json
 import random
 
 # Definir el cuerpo del mensaje
@@ -46,6 +47,20 @@ for _ in range(1000):
     variation = {"text": complete_message, "is_smsing": 1}
     variations.append(variation)
 
-# Opcional: Imprimir las primeras 5 variaciones para verificar
-for variation in variations[:5]:
-    print(variation)
+# Ruta del archivo de salida
+output_netflix_path = "output_netflix.json"
+
+try:
+    # Intentar abrir el archivo existente para añadir las nuevas variaciones
+    with open(output_netflix_path, "r+", encoding="utf-8") as file:
+        existing_data = json.load(file)
+        existing_data.extend(variations)
+        file.seek(0)
+        json.dump(existing_data, file, ensure_ascii=False, indent=4)
+except FileNotFoundError:
+    # Si el archivo no existe, crear uno nuevo y escribir las variaciones
+    with open(output_netflix_path, "w", encoding="utf-8") as file:
+        json.dump(variations, file, ensure_ascii=False, indent=4)
+
+# Opcional: Imprimir mensaje de confirmación
+print(f"Se han añadido {len(variations)} variaciones al archivo {output_netflix_path}.")
