@@ -1,6 +1,7 @@
 import url_library
 import word_library
-import pandas as pd
+import csv
+
 
 
 bad_url = "http://malware.testing.google.test/testing/malware/"
@@ -13,6 +14,7 @@ messageList = [{"text": "NETFLIX: Su suscripcion ha sido NETFLIX suspendida, ini
                {"text": "AGENCIA TRIBUTARIA:su ejercicio anterior 2022/2023 a resultado favorable para usted en 286,84€ para recibir la devolucion antes del13/07/2023 pulse aqui ref076589.eu", "is_smsing": 1},
                {"text": "Paga la cuenta sin moverte de la silla, usando TheFork netflix PAY www.thefork.es/pay?utm_medium=sms&utm_source=TFPay", "is_smsing": 0}]
 
+claves_csv = ["message", "is_smsing", "safe_info", "domain_old_info", "is_ip", "url_length", "number_of_subdomains", "is_https", "special_characters", "tlds_blackist", "make_redirection", "creation_date", "updated_date", "is_suspended", "count_dictionary"]
 def setUrlDataset(url):
     return {
         "safe_info": url_library.get_domain_safe_info(url),
@@ -26,21 +28,25 @@ def setUrlDataset(url):
         "make_redirection": url_library.make_redirection(url)
     }
 
-
-
-for message in messageList:
-    lineCsv = {}
-    url = url_library.get_url(message["text"])
-    is_smsing = message["is_smsing"]
-    lineCsv["message"] = message["text"]
-    lineCsv["is_smsing"] = is_smsing
-    if(url):
-        datasetUrl = setUrlDataset(url)
-        whoisInfo = url_library.get_whois(url)
-        lineDataset = {**lineCsv, **datasetUrl, **whoisInfo}
-        print(lineDataset)
-    count_dictionary = word_library.count_words(message["text"], dictionary)
-    print("coincidence words ", count_dictionary)
+with open('data.csv', mode='w', newline='') as dataFile:
+    writer_csv = csv.writer(dataFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    writer_csv.writerow(claves_csv)
+    for message in messageList:
+        lineCsv = {}
+        url = url_library.get_url(message["text"])
+        is_smsing = message["is_smsing"]
+        lineCsv["message"] = message["text"]
+        lineCsv["is_smsing"] = is_smsing
+        if(url):
+            datasetUrl = setUrlDataset(url)
+            whoisInfo = url_library.get_whois(url)
+        count_dictionary = {"count_dictionary": word_library.count_words(message["text"], dictionary)}
+        lineDataset = {**lineCsv, **datasetUrl, **whoisInfo, **count_dictionary}
+        print("\n", lineDataset)
+        valores_en_orden = [lineDataset.get(clave) for clave in claves_csv]
+        writer_csv.writerow(valores_en_orden)
+        
+        print("coincidence words ", count_dictionary)
         
 
 

@@ -160,8 +160,8 @@ def get_whois(url):
     else:
         isSuspended = ""
     return {
-        "creation_date": creation_date,
-        "updated_date": updated_date,
+        "creation_date": str(creation_date),
+        "updated_date": str(updated_date),
         "is_suspended": isSuspended
     }
     
