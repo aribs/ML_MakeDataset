@@ -69,8 +69,8 @@ def get_domain_time_info(url):
         result = response.json()
         if result["domain_age"]:
             return result["domain_age"]
-    except requests.exceptions.HTTPError as err:
-        print(f'Error en la petición HTTP: {err}')
+    #except requests.exceptions.HTTPError as err:
+        #print(f'Error en la petición HTTP: {err}')
     except Exception as e:
         print(f'Error : {e}')
 
@@ -155,11 +155,14 @@ def get_whois(url):
         updated_date = info_whois["updated_date"].strftime("%Y/%m/%d")
     else:
         updated_date = ""
-
+    if info_whois.get("name_servers"):
+        isSuspended = check_suspended_domain(info_whois.get("name_servers"))
+    else:
+        isSuspended = ""
     return {
         "creation_date": creation_date,
         "updated_date": updated_date,
-        "is_suspended": check_suspended_domain(info_whois["name_servers"])
+        "is_suspended": isSuspended
     }
     
 
