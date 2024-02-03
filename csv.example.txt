@@ -1,2 +1,2 @@
-text, is_smishing, url, safe_info, domain_old_info, is_ip, url_length, number_of_subdomains, is_https, special_characters, tlds_blacklist, make_redirection, 
+text, is_smishing, url, safe_info, domain_old_info, is_ip, url_length, number_of_subdomains, is_https, special_characters, tlds_blacklist, make_redirection, creation_date, updated_date, suspended_domain
 texto,     1         1,   1,          345,           0    ,   121,            2              , 1       ,1                     , 1            1,                

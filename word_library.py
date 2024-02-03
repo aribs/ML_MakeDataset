@@ -6,7 +6,6 @@ def count_words(text, dictionary):
     words = text.lower().split()   
     counter = {word: 0 for word in dictionary }
     for word in words:
-        print(word)
         if word in dictionary:
             counter[word] += 1
     total_matches = sum(counter.values())

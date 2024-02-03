@@ -142,17 +142,16 @@ def make_redirection(url):
 def get_whois(url):
     domain = get_domain_from_url(url)
     info_whois = whois.whois(domain)
-    #info_whois = info_whois.json()
-    #print(info_whois["creation_date"])
-    if info_whois["creation_date"] and  isinstance(info_whois["creation_date"], list):
+    if info_whois.get("creation_date") and  isinstance(info_whois.get("creation_date"), list):
         creation_date = info_whois["creation_date"][0].strftime("%Y/%m/%d")
-    elif info_whois["creation_date"]:
+    elif info_whois.get("creation_date"):
         creation_date = info_whois["creation_date"].strftime("%Y/%m/%d")
     else:
         creation_date = ""
-    if info_whois["updated_date"] and  isinstance(info_whois["updated_date"], list):
+
+    if info_whois.get("updated_date") and  isinstance(info_whois.get("updated_date"), list):
         updated_date = info_whois["updated_date"][0].strftime("%Y/%m/%d")
-    elif info_whois["updated_date"]:
+    elif info_whois.get("updated_date"):
         updated_date = info_whois["updated_date"].strftime("%Y/%m/%d")
     else:
         updated_date = ""

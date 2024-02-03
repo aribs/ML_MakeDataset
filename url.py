@@ -36,10 +36,10 @@ for message in messageList:
     lineCsv["is_smsing"] = is_smsing
     if(url):
         datasetUrl = setUrlDataset(url)
-        lineDataset = {**lineCsv, **datasetUrl}
-        #print(lineDataset)
+        whoisInfo = url_library.get_whois(url)
+        lineDataset = {**lineCsv, **datasetUrl, **whoisInfo}
+        print(lineDataset)
     count_dictionary = word_library.count_words(message["text"], dictionary)
-    print(message["text"], "\n")
     print("coincidence words ", count_dictionary)
         
 
