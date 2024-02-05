@@ -1,6 +1,14 @@
 import url_library
 import word_library
 import csv
+import json
+json_netflix_path = "./generadores/output_netflix.json"
+
+try: 
+    with open(json_netflix_path, 'r', encoding='utf-8')as file:
+        netflix_data = json.load(file)
+except FileNotFoundError:
+    print(f" {json_netflix_path} not found.")
 
 
 
@@ -37,7 +45,7 @@ def setUrlDataset(url):
 with open('data.csv', mode='w', newline='') as dataFile:
     writer_csv = csv.writer(dataFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     writer_csv.writerow(claves_csv)
-    for message in messageList:
+    for message in netflix_data:
         lineCsv = {}
         url = url_library.get_url(message["text"])
         is_smsing = message["is_smsing"]

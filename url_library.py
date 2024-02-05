@@ -69,10 +69,12 @@ def get_domain_time_info(url):
         result = response.json()
         if result["domain_age"]:
             return result["domain_age"]
-    #except requests.exceptions.HTTPError as err:
-        #print(f'Error en la petición HTTP: {err}')
+    except requests.exceptions.HTTPError as err:
+        print(f'Error en la petición HTTP: {err}')
+        return 0
     except Exception as e:
         print(f'Error : {e}')
+        return 0
 
 #Es una IP
 def is_ip(url):
@@ -147,18 +149,18 @@ def get_whois(url):
     elif info_whois.get("creation_date"):
         creation_date = info_whois["creation_date"].strftime("%Y/%m/%d")
     else:
-        creation_date = ""
+        creation_date = "None"
 
     if info_whois.get("updated_date") and  isinstance(info_whois.get("updated_date"), list):
         updated_date = info_whois["updated_date"][0].strftime("%Y/%m/%d")
     elif info_whois.get("updated_date"):
         updated_date = info_whois["updated_date"].strftime("%Y/%m/%d")
     else:
-        updated_date = ""
+        updated_date = "None"
     if info_whois.get("name_servers"):
         isSuspended = check_suspended_domain(info_whois.get("name_servers"))
     else:
-        isSuspended = ""
+        isSuspended = "None"
     return {
         "creation_date": str(creation_date),
         "updated_date": str(updated_date),
