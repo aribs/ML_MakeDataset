@@ -1,6 +1,6 @@
 import json
 import random
-numMensajesByPacket = 3000
+numMensajesByPacket = 4000
 def generate_messages(is_smishing, introductions, reasons, actions):
     # Lista para almacenar las variaciones generadas
     variations = []
@@ -12,7 +12,7 @@ def generate_messages(is_smishing, introductions, reasons, actions):
         action = random.choice(actions)
         url = random.choice(urls)  
         complete_message = f"{intro} {reason} {action} {url}"
-        variation = {"text": complete_message, "is_smsing": 1}
+        variation = {"text": complete_message, "is_smsing": is_smishing}
         variations.append(variation)
 
     # Ruta del archivo de salida
@@ -202,5 +202,5 @@ actions = [
 ]
 urls = ["https://lmes.es/arb3", "http://t6.mc.amplifon.com/r/?id=s1d5f83f7,360f71ad,10cc991d", "https://www.decathlon.es/"]
 
-numMensajesByPacket = 5000
+numMensajesByPacket = 6000
 generate_messages(0, introductions, reasons, actions)
