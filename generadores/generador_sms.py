@@ -1,6 +1,6 @@
 import json
 import random
-numMensajesByPacket = 3
+numMensajesByPacket = 3000
 def generate_messages(is_smishing, introductions, reasons, actions):
     # Lista para almacenar las variaciones generadas
     variations = []
@@ -130,7 +130,7 @@ actions = [
     "Asegurate que no se devuelve el paquete",
     "Evite que sea reverso"
 ]
-urls = ["https://ijarez.com/GaJb5q5", "uhapib.com/xuOthWt", "nfllf.info/48RQXwI", "ilorol.com/GQjn8ec", "http://217.160.114.154", "http://217.160.114.154/redirection", "http://217.160.114.154/pages/special_char_а.html", "http://truchodomain.info/", "http://truchodomain.info/redirection", "http://truchodomain.info/pages/special_char_а.html"]
+urls = ["https://ijarez.com/GaJb5q5", "uhapib.com/xuOthWt", "nfllf.info/48RQXwI", "ilorol.com/GQjn8ec", "http://217.160.114.154", "post.cfd/es","http://217.160.114.154/redirection", "http://217.160.114.154/pages/special_char_а.html", "http://truchodomain.info/", "http://truchodomain.info/redirection", "http://truchodomain.info/pages/special_char_а.html"]
 
 generate_messages(1, introductions, reasons, actions)
 
@@ -154,7 +154,7 @@ introductions = [
 reasons = [
     "Confirma información",
     "Revisa tus datos",
-    "Confirma tus datos"
+    "Confirma tus datos",
     "Confirma datos correctos",
     
 ]
@@ -169,3 +169,38 @@ actions = [
 urls = ["https://ijarez.com/GaJb5q5", "uhapib.com/xuOthWt", "nfllf.info/48RQXwI", "netfIix-micuenta.com", "http://217.160.114.154", "http://217.160.114.154/redirection", "http://217.160.114.154/pages/special_char_а.html", "http://truchodomain.info/", "http://truchodomain.info/redirection", "http://truchodomain.info/pages/special_char_а.html"]
 
 generate_messages(1, introductions, reasons, actions)
+
+
+###MENSAJES TIPO INOCUOS
+introductions = [
+    "¡Sorprendete esta Navidad en GAES",
+    "Lo estabas esperando! ",
+    "CAJAMAR",
+    "Oferta Especial"
+    "Descuento en compra",
+    "Rebajas Online"     
+]
+reasons = [
+    "Una MANTA y un CALENDARIO de REGALO al revisar tu audicion",
+    "! Comprando uno de estos arboles de Navidad ",
+    " Cuenta 360. Deja de darle vueltas a las cosas y dale una vuelta a tus ahorros",
+    "Descuentos de hasta el 30%",
+    "Descuentazos sólo online",
+    "Sólo hoy"
+   
+]
+actions = [
+    "Hasta 15/12/23. Cita",
+    "Inicia sesión en:",
+    "Confirma datos en :"
+    "Iniciar sesión: "
+    "Confirma en: "
+    "tendras un -15% en adornos y figuras. ¡Solo hasta 10 Diciembre!",
+    "Entra en:",
+    "Compra en: "
+    
+]
+urls = ["https://lmes.es/arb3", "http://t6.mc.amplifon.com/r/?id=s1d5f83f7,360f71ad,10cc991d", "https://www.decathlon.es/"]
+
+numMensajesByPacket = 5000
+generate_messages(0, introductions, reasons, actions)
