@@ -2,11 +2,12 @@ import url_library
 import word_library
 import csv
 import json
-json_netflix_path = "./generadores/output_netflix.json"
+from dictionary import dictionary
+json_netflix_path = "./output_generated.json"
 
 try: 
     with open(json_netflix_path, 'r', encoding='utf-8')as file:
-        netflix_data = json.load(file)
+        message_data = json.load(file)
 except FileNotFoundError:
     print(f" {json_netflix_path} not found.")
 
@@ -16,7 +17,6 @@ bad_url = "http://malware.testing.google.test/testing/malware/"
 good_url = "https://www.google.com"
 special_url = "http://malware.testing.googвle.test/testing/malware/"
 
-dictionary = ["netflix", "tributaria", "inicie", "silla"]
 
 messageList = [{"text": "NETFLIX: Su suscripcion ha sido NETFLIX suspendida, inicie sesion para actualizar su informacion a través de: netfIix-micuenta.com", "is_smsing": 1}, 
                {"text": "AGENCIA TRIBUTARIA:su ejercicio anterior 2022/2023 a resultado favorable para usted en 286,84€ para recibir la devolucion antes del13/07/2023 pulse aqui ref076589.eu", "is_smsing": 1},
@@ -45,7 +45,7 @@ def setUrlDataset(url):
 with open('data.csv', mode='w', newline='') as dataFile:
     writer_csv = csv.writer(dataFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     writer_csv.writerow(claves_csv)
-    for message in netflix_data:
+    for message in message_data:
         lineCsv = {}
         url = url_library.get_url(message["text"])
         is_smsing = message["is_smsing"]
@@ -62,9 +62,4 @@ with open('data.csv', mode='w', newline='') as dataFile:
         
         print("coincidence words ", count_dictionary)
         
-
-
-
-
-
     
