@@ -35,6 +35,7 @@ def generate_messages(is_smishing, introductions, reasons, actions):
 
 ####MENSAJES TIPO NETFLIX
 # Definir el cuerpo del mensaje
+
 introductions = [
     "NETFLIX: Su suscripción ha sido",
     "Alerta NETFLIX: Detectamos un problema con su cuenta, está",
