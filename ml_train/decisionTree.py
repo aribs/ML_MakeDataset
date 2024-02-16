@@ -4,7 +4,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 
 # Cargar el conjunto de datos
-df = pd.read_csv('dataset.csv')
+df = pd.read_csv('dataset_boolean.csv')
 
 # Quitar la columna 'message' del conjunto de datos, manteniendo el resto
 X = df.drop(['message'], axis=1)
@@ -51,7 +51,7 @@ print(f'Accuracy: {accuracy}')
 
 
 # Cargar el conjunto de datos de prueba
-df_test = pd.read_csv('data_test.csv')
+df_test = pd.read_csv('dataset_to_predict_boolean.csv')
 
 # Asegurarse de excluir la columna 'message' como se hizo con el conjunto de entrenamiento
 df_test = df_test.drop(columns=['message'])
@@ -84,6 +84,6 @@ predicted_classes = model.predict(X_test)
 df_test['Predicted_is_smsing'] = predicted_classes
 
 # Opcionalmente, guardar las predicciones en un nuevo archivo CSV
-df_test.to_csv('predicted_data_test.csv', index=False)
+df_test.to_csv('predicted_data_test.csv', index=True)
 
 print("Predicciones guardadas en 'predicted_data_test.csv'.")
