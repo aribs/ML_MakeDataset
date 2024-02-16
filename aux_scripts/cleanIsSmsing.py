@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Ruta al archivo CSV
-archivo_csv = "./data_to_test.csv"
+archivo_csv = "./data_to_predict.csv"
 
 # Leer el archivo CSV en un DataFrame de pandas
 df = pd.read_csv(archivo_csv)
