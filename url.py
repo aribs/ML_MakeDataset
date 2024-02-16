@@ -3,7 +3,7 @@ import word_library
 import csv
 import json
 from dictionary import dictionary
-json_netflix_path = "./mensajes_prueba.json"
+json_netflix_path = "./output_generated.json"
 
 try: 
     with open(json_netflix_path, 'r', encoding='utf-8')as file:

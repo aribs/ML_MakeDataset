@@ -1,6 +1,6 @@
 import json
 import random
-numMensajesByPacket = 4000
+numMensajesByPacket = 500
 def generate_messages(is_smishing, introductions, reasons, actions):
     # Lista para almacenar las variaciones generadas
     variations = []
@@ -133,7 +133,7 @@ actions = [
 ]
 urls = ["https://ijarez.com/GaJb5q5", "uhapib.com/xuOthWt", "nfllf.info/48RQXwI", "ilorol.com/GQjn8ec", "http://217.160.114.154", "post.cfd/es","http://217.160.114.154/redirection", "http://217.160.114.154/pages/special_char_а.html", "http://truchodomain.info/", "http://truchodomain.info/redirection", "http://truchodomain.info/pages/special_char_а.html"]
 
-generate_messages(1, introductions, reasons, actions)
+#generate_messages(1, introductions, reasons, actions)
 
 ###MENSAJES TIPO RANDOM
 introductions = [
@@ -169,7 +169,7 @@ actions = [
 ]
 urls = ["https://ijarez.com/GaJb5q5", "uhapib.com/xuOthWt", "nfllf.info/48RQXwI", "netfIix-micuenta.com", "http://217.160.114.154", "http://217.160.114.154/redirection", "http://217.160.114.154/pages/special_char_а.html", "http://truchodomain.info/", "http://truchodomain.info/redirection", "http://truchodomain.info/pages/special_char_а.html"]
 
-generate_messages(1, introductions, reasons, actions)
+#generate_messages(1, introductions, reasons, actions)
 
 
 ###MENSAJES TIPO INOCUOS
@@ -203,5 +203,5 @@ actions = [
 ]
 urls = ["https://lmes.es/arb3", "http://t6.mc.amplifon.com/r/?id=s1d5f83f7,360f71ad,10cc991d", "https://www.decathlon.es/"]
 
-numMensajesByPacket = 6000
+numMensajesByPacket = 1000
 generate_messages(0, introductions, reasons, actions)
