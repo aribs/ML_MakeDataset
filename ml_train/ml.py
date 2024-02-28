@@ -276,7 +276,7 @@ def main():
     # phising_detector.randomise_data('data_to_test.csv')
     #Preparing train and validation data
     X, y, df = phising_detector.load_and_prepare_data('dataset.csv')
-    X_val, y_val, df_val = phising_detector.load_and_prepare_data('data_to_test.csv')
+    X_val, y_val, df_val = phising_detector.load_and_prepare_data('caso_uso_data.csv')
 
     (x_train_2, y_train_2), (x_val_2, y_val_2), (x_test_2, y_test_2) = phising_detector.load_and_vectorize_data()
     #Split data for training

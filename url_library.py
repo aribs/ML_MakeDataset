@@ -48,9 +48,9 @@ def get_domain_safe_info(url):
         response.raise_for_status()
         result = response.json()
         if result:
-            return True
+            return 1
         else:
-            return False 
+            return 0 
     except requests.exceptions.HTTPError as err:
         print(f'Error en la petición HTTP GET DOMAIN SAFE: {err}')
         return 0 
@@ -71,18 +71,18 @@ def get_domain_time_info(url):
             return result["domain_age"]
     except requests.exceptions.HTTPError as err:
         print(f'Error en la petición HTTP: {err}')
-        return False
+        return 0
     except Exception as e:
         print(f'Error : {e}')
-        return False
+        return 0
 
 #Es una IP
 def is_ip(url):
     pattern = r'\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'
     if re.search(pattern, url):
-        return True
+        return 1
     else:
-        return False
+        return 0
     
 #Url Length
 def url_length(url):
@@ -107,17 +107,17 @@ def number_of_subdomains(url):
 def is_https(url):
     result = urlparse(url)
     if result.scheme == 'https':
-        return True
+        return 1
     else:
-        return False
+        return 0
 
 #Carácteres Especiales
 def special_characters(url):
     pattern = re.compile(r"[^a-zA-Z0-9/:.?#&=_%-]")
     if pattern.search(url):
-        return True
+        return 1
     else:
-        return False
+        return 0
 
 #Dominio Sospechoso
 def tlds_blacklist(url):
@@ -133,9 +133,9 @@ def make_redirection(url):
     try:
         response = requests.get(url)
         if response.history:
-            return True
+            return 1
         else:
-            return False
+            return 0
     except requests.RequestException as e:
         print(f"Error al realizar la redireccion: {e}")
         return 0
