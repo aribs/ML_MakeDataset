@@ -3,7 +3,7 @@ import word_library
 import csv
 import json
 from dictionary import dictionary
-json_netflix_path = "./output_generated.json"
+json_netflix_path = "./caso_uso/caso_uso.json"
 
 try: 
     with open(json_netflix_path, 'r', encoding='utf-8')as file:
@@ -42,7 +42,7 @@ def setUrlDataset(url):
         "make_redirection": url_library.make_redirection(url)
     }
 
-with open('data.csv', mode='w', newline='') as dataFile:
+with open('caso_uso_data.csv', mode='w', newline='') as dataFile:
     writer_csv = csv.writer(dataFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     writer_csv.writerow(claves_csv)
     for message in message_data:
